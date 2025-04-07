@@ -3,14 +3,14 @@ import 'package:get_it/get_it.dart';
 
 import '../controller/cadastro_controller.dart';
 
-class ExibicaoView extends StatefulWidget {
-  const ExibicaoView({super.key});
+class PerfilView extends StatefulWidget {
+  const PerfilView({super.key});
 
   @override
-  State<ExibicaoView> createState() => _ExibicaoViewState();
+  State<PerfilView> createState() => _ExibicaoViewState();
 }
 
-class _ExibicaoViewState extends State<ExibicaoView> {
+class _ExibicaoViewState extends State<PerfilView> {
   final ctrl = GetIt.I.get<CadastroController>();
 
   @override
@@ -54,6 +54,12 @@ class _ExibicaoViewState extends State<ExibicaoView> {
             Text('E-mail: ${ctrl.txtEmail.text}',
                 style: TextStyle(color: Colors.white)),
             Text('Telefone: ${ctrl.txtTelefone.text}',
+                style: TextStyle(color: Colors.white)),
+            Text('Número de posts:',
+                style: TextStyle(color: Colors.white)),
+            Text('Quantidade de amigos: ',
+                style: TextStyle(color: Colors.white)),
+            Text('Data de criação do perfil: ',
                 style: TextStyle(color: Colors.white)),
           ],
         ),

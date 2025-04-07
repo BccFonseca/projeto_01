@@ -7,6 +7,12 @@ import 'view/cadastro_view.dart';
 import 'view/exibicao_view.dart';
 import 'view/home_view.dart';
 import 'view/esqueceu_senha_view.dart';
+import 'view/tela_principal.dart';
+import 'view/busca_view.dart';
+import 'view/postar_view.dart';
+import 'view/perfil_view.dart';
+import 'view/procura_usuario_view.dart';
+import 'view/sobre_view.dart';
 
 final g = GetIt.instance;
 
@@ -35,6 +41,12 @@ class MainApp extends StatelessWidget {
         'cadastro': (context) => const CadastroView(),
         'exibicao': (context) => const ExibicaoView(),
         'esqueceu': (context) => const EsqueceuSenhaView(),
+        'principal': (context) => const TelaPrincipalView(),
+        'busca': (context) => const BuscaView(),
+        'postar': (context) => const PostarView(),
+        'perfil': (context) => const PerfilView(),
+        'procura': (context) => const ProcuraUsuarioView(),
+        'sobre': (context) => const SobreView(),
       },      
       
     );

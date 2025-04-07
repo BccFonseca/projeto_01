@@ -17,6 +17,9 @@ class EsqueceuSenhaView extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+          iconTheme: IconThemeData(
+          color: const Color.fromARGB(255, 243, 240, 240), // Altere para a cor que quiser
+        ),
         backgroundColor: Colors.black12,
       ),
       backgroundColor: const Color.fromARGB(255, 59, 63, 66),
@@ -34,12 +37,23 @@ class EsqueceuSenhaView extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-            TextField(
+            TextFormField(
               decoration: InputDecoration(
                 labelText: 'E-mail',
                 labelStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(),
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, insira um email';
+                }
+                if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                  return 'Por favor, insira um email válido';
+                }
+                return null;
+              },
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              style: TextStyle(color: Colors.white),
               keyboardType: TextInputType.emailAddress,
             ),
             SizedBox(height: 16),
@@ -50,7 +64,11 @@ class EsqueceuSenhaView extends StatelessWidget {
                   SnackBar(content: Text('E-mail de recuperação enviado!')),
                 );
               },
-              child: Text('Enviar'),
+              child: Text('Enviar', 
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,),
+                        ),
             ),
           ],
         ),
