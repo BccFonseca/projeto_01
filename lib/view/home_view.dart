@@ -147,7 +147,7 @@ class HomeViewState extends State<HomeView> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 230),
+                    SizedBox(height: 220),
                     Text(
                       'Não tem uma conta?',
                       style: TextStyle(color: Colors.white),

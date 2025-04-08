@@ -13,18 +13,70 @@ class TelaPrincipalView extends StatefulWidget {
 class _TelaPrincipalView extends State<TelaPrincipalView> {
   final ctrl = GetIt.I.get<CadastroController>();
 
+  late List<Map<String, dynamic>> menuItems;
+
   @override
   void initState() {
     super.initState();
     ctrl.addListener(() => setState(() {}));
+    menuItems = [
+      {
+        'icon': Icons.search,
+        'title': 'Buscar',
+        'route': 'busca',
+      },
+      {
+        'icon': Icons.send,
+        'title': 'Postar',
+        'route': 'postar',
+      },
+      {
+        'icon': Icons.person,
+        'title': 'Perfil',
+        'route': 'perfil',
+      },
+      {
+        'icon': Icons.search,
+        'title': 'Procurar Usuário',
+        'route': 'procura',
+      },
+      {
+        'icon': Icons.refresh,
+        'title': 'Atualizar',
+        'action': () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const TelaPrincipalView()),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Tela Principal atualizada!'),
+            ),
+          );
+        },
+      },
+      {
+        'icon': Icons.info,
+        'title': 'Sobre',
+        'route': 'sobre',
+      },
+      {
+        'icon': Icons.arrow_back,
+        'title': 'Fechar Menu',
+        'action': () {
+          Navigator.of(context).pop(); // Fecha o Drawer
+        },
+      },
+    ];
   }
+
 
   @override
   Widget build(BuildContext context) {
     ctrl.limpar();
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: true, // Habilita o botão de menu
+        automaticallyImplyLeading: true,
         title: Text(
           'Bem-vindo',
           style: const TextStyle(color: Colors.white),
@@ -54,78 +106,34 @@ class _TelaPrincipalView extends State<TelaPrincipalView> {
       backgroundColor: const Color.fromARGB(255, 59, 63, 66),
       drawer: Drawer(
         backgroundColor: const Color.fromARGB(255, 59, 63, 66),
-        child: ListView(
+        child: ListView.builder(
           padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Colors.black12,
-              ),
-              child: const Text(
-                'Menu',
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.search, color: Colors.white),
-              title: const Text('Buscar', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.pushNamed(context, 'busca');
-                // Ação para "Buscar"
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.send, color: Colors.white),
-              title: const Text('Postar', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.pushNamed(context, 'postar');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.person, color: Colors.white),
-              title: const Text('Perfil', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.pushNamed(context, 'perfil');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.search, color: Colors.white),
-              title: const Text('Procurar Usuário', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.pushNamed(context, 'procura');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.refresh, color: Colors.white),
-              title: const Text('Atualizar', style: TextStyle(color: Colors.white)),
-              onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const TelaPrincipalView()),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                content: Text('Tela Principal atualizada!'),
+          itemCount: menuItems.length + 1,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors.black12,
+                ),
+                child: const Text(
+                  'Menu',
+                  style: TextStyle(color: Colors.white, fontSize: 24),
                 ),
               );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.info , color: Colors.white),
-              title: const Text('Sobre', style: TextStyle(color: Colors.white)),
+            }
+            final item = menuItems[index - 1];
+            return ListTile(
+              leading: Icon(item['icon'], color: Colors.white),
+              title: Text(item['title'], style: const TextStyle(color: Colors.white)),
               onTap: () {
-                Navigator.pushNamed(context, 'sobre');
+                if (item['route'] != null) {
+                  Navigator.pushNamed(context, item['route']);
+                } else if (item['action'] != null) {
+                  item['action']();
+                }
               },
-            ),
-            ListTile(
-              leading: Icon(Icons.arrow_back, color: Colors.white),
-              title: const Text('Fechar Menu', style: TextStyle(color: Colors.white)),
-              onTap: () {
-              Navigator.of(context).pop(); // Fecha o Drawer
-          
-              },
-            ),
-          ],
+            );
+          },
         ),
       ),
       body: const Center(

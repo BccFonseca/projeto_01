@@ -61,6 +61,13 @@ class _ExibicaoViewState extends State<PerfilView> {
                 style: TextStyle(color: Colors.white)),
             Text('Data de criação do perfil: ',
                 style: TextStyle(color: Colors.white)),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, 'postagens');
+              },
+              child: Text('Ver Minhas Postagens'),
+            ),
           ],
         ),
       ),

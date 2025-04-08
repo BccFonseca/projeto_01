@@ -13,6 +13,7 @@ import 'view/postar_view.dart';
 import 'view/perfil_view.dart';
 import 'view/procura_usuario_view.dart';
 import 'view/sobre_view.dart';
+import 'view/postagens_view.dart';
 
 final g = GetIt.instance;
 
@@ -47,6 +48,7 @@ class MainApp extends StatelessWidget {
         'perfil': (context) => const PerfilView(),
         'procura': (context) => const ProcuraUsuarioView(),
         'sobre': (context) => const SobreView(),
+        'postagens': (context) => const PostagensView(),
       },      
       
     );
